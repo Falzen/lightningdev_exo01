@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION">
+    <aura:attribute name="sObjectName" type="String" required="true" />
+    <aura:attribute name="listName" type="String" required="true" />    
+    <aura:attribute name="logic" type="String" required="false" />    
+</aura:event>

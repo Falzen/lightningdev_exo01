@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>This custom settings define the accessibility of picklist fields for the 100_3C_CriteriaDefinition</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>listName__c</fullName>
+        <description>Name of the list</description>
+        <externalId>false</externalId>
+        <label>listName</label>
+        <length>25</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>CS100_3C_CriteriaPicklistConfiguration</label>
+    <visibility>Public</visibility>
+</CustomObject>

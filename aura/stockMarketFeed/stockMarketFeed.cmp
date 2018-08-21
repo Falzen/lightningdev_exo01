@@ -1,0 +1,4 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes">
+    <iframe src="https://jmalenfant-dev-ed--ltays.eu11.visual.force.com/apex/LTAYS_Account_Salesforce1" X-Frame-Options="SAMEORIGIN" width="100%" style="height:900px;
+    " frameBorder="0" />            
+</aura:component>

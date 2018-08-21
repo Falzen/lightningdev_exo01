@@ -1,0 +1,33 @@
+<aura:component controller="StandardSetController">
+<ltng:require styles="/resource/gpcal_lex_yo_SLDS0121/assets/styles/salesforce-lightning-design-system-ltng.css" 
+	scripts="/resource/gpcal_lex_yo_jquery"
+	afterScriptsLoaded="{!c.doInit}"
+/>
+
+	<aura:attribute name="sobjectname" type="String" access="global"/>
+	<aura:attribute name="record_list" type="SObject[]" />
+	<aura:attribute name="filter_id" type="String" />
+	<aura:attribute name="filters" type="Object[]" />
+
+
+
+	<div class="slds">
+		<div class="slds-form-element">
+			<label class="slds-form-element__label" for="user_list">Please select your view:</label>
+			<div class="slds-form-element__control">
+				<div class="slds-select_container">
+					<select id="filter_id" class="slds-select" onchange="{!c.selectview}">
+						<option value=""> - Please select - </option>
+						<aura:iteration items="{!v.filters}" var="filter">
+							<option value="{!filter.value}" >{!filter.label}</option>
+						</aura:iteration>
+					</select>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+
+
+</aura:component>

@@ -1,0 +1,19 @@
+.THIS#accountList-container {
+    box-shadow: 0 0 7px 0px grey;
+    padding: 12px;
+}
+.THIS ul {
+    height: 600px;
+    overflow-y: scroll;
+    padding: 0;
+}
+.THIS h1 {
+    text-align: center;
+    border-bottom: 1px solid grey;
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+
+.THIS .searchbar-container {
+    margin: 8px auto;
+}

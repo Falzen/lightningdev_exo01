@@ -1,0 +1,28 @@
+<aura:component>
+
+    <aura:attribute name="userInput" type="String" />
+    <aura:attribute name="isAutoSearching" type="Boolean" default="true" />
+    <aura:registerEvent name="exo01_fromSearchbarEvent" type="c:exo01_fromSearchbarEvent" />
+
+    <aura:if isTrue="{! v.isAutoSearching }">
+        <div class="slds-grid">
+                <ui:inputText class="slds-input" placeholder="Search" value="{!v.userInput}" updateOn="keyup" keyup="{! c.filter }" />
+        </div>
+        <aura:set attribute="else">
+
+            <div class="slds-grid">
+                <div class="slds-col slds-size_5-of-6" style="padding-left: 0;">
+                    <ui:inputText class="slds-input" placeholder="Search" value="{!v.userInput}" updateOn="keyup" keyup="{! c.filterOnEnterKey }"
+                    />
+                </div>
+
+                <div class="slds-col slds-size_1-of-6">
+                    <button class="slds-button slds-button_neutral" onclick="{! c.filter }">Search</button>
+                </div>
+            </div>
+        </aura:set>
+    </aura:if>
+
+
+
+</aura:component>

@@ -1,0 +1,5 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >
+   
+     <iframe class="chatterFeed" src="https://jmalenfant-dev-ed.my.salesforce.com/apex/LTAYS_vfPage" 
+    frameBorder="0"/>
+</aura:component>

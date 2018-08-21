@@ -1,0 +1,9 @@
+<design:component >	
+    <design:attribute name="sObjectName"    label="sObject Name"    datasource="apex://LC102_3C_DesignObjectNamePickList" description="SObject on wich you will define criteria" />
+    <design:attribute name="listName"       label="List Name"       description="Used for custom settings" required="true" />
+    <design:attribute name="lookupQuery"    label="Lookup Query"    description="Field on wich you append the entered value in the input, default value is Name" />
+    <design:attribute name="lookupValue"    label="Lookup Value"    description="Field on wich you want to query for the lookups criterion, default value is Id" />
+    <design:attribute name="activateSearch"                         description="Activate the search button" />
+    <design:attribute name="activateClear"                          description="Activate the clear button" />
+    <design:attribute name="activateLogic"                          description="Activate the logic process options" />    
+</design:component>

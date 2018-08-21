@@ -1,0 +1,88 @@
+.THIS 
+{
+    /*overflow: scroll;*/
+    /*height: 63vh;*/
+    /*width: 98.2vw;*/
+    margin-bottom: 20px;
+}
+.THIS .slds-checkbox [type=checkbox] {
+    position: initial;
+    height: 18px;
+    width: 18px;
+    clip: auto;
+    overflow: visible;
+    margin: 0;
+    padding: inherit;
+    border: 1px solid #dddbda;
+}
+.THIS td, .THIS th
+{
+    text-align: center;
+}
+
+.THIS th
+{
+    cursor: pointer;
+    padding: 0 !important;
+}
+
+.THIS th>div
+{
+    padding: 0.5rem;
+}
+
+.THIS th:hover
+{
+    background-color: #f2f3f3;
+}
+
+.THIS .m-perso {
+	margin: 10px;
+    display: inline-block;
+}
+
+.THIS .pagination {
+    text-align: center;
+}
+
+.THIS .choice_column .selectdropdown {
+    width: 400px;
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
+.THIS #choice_column .slds-button, .THIS .choice_column .slds-button {
+    width: inherit;
+    /* line-height: 2rem; */
+    padding: 9px;
+    margin: 3px 0;
+    background-color: #f59b9b;
+    color: #FFF;
+    border: none;
+    cursor: pointer;
+}
+.THIS #choice_column .slds-dropdown, .THIS .choice_column .slds-dropdown {
+    width: 100%;
+}
+
+.THIS #choice_column2 {
+    float: right;
+}
+.THIS #choice_column2 .slds-button {
+    background-color: #8080d1;
+}
+.THIS .list-column-item {
+    cursor: pointer;
+    width: 100%;
+    margin: 0;
+    padding: 11px;
+    display: flex;
+}
+
+.THIS .list-column-item img {
+    margin-right: 2px;
+}
+
+.THIS .list-column-item:hover {
+    background-color: #ffecec;
+}

@@ -1,0 +1,11 @@
+.THIS.meterBar {
+    width: 50%;
+    height: 35px;
+    margin: 15px 0;
+}
+
+.THIS.chatterFeed {
+    width: auto;
+    height: 100vh;
+    border: 2px solid grey;
+}

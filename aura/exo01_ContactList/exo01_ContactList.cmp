@@ -1,0 +1,34 @@
+<aura:component controller="exo01_Controller" >
+    <aura:attribute name="accountId" type="String" />   
+    <aura:attribute name="contacts" type="Contact[]" />
+    <aura:attribute name="showDetails" type="Boolean" default="false" />
+    <aura:attribute name="sObjectForDetails" type="sObject"  />
+    <aura:attribute name="withPagination" type="Boolean" default="false"/>
+
+    <aura:attribute name="listName" type="String" default="ContactList"/>
+
+    <aura:handler event="c:exo01_selectedSobjectId" action="{!c.goGetContacts}"/>
+    <aura:handler event="c:exo01_sobjectIdForDetails" action="{!c.displaySobjectDetails}"/>
+    
+    <div id="contactList-container">
+        <h1>{! $Label.c.Exo01_contact_list }</h1>
+        
+        <ul>
+            <aura:iteration items="{! v.contacts }" var="oneContact" >
+                <c:exo01_ContactListItem contact="{! oneContact }" />
+            </aura:iteration>
+        </ul>
+        <div class="contact-details-container">
+            <aura:if isTrue="{! v.showDetails }">
+                <force:recordView recordId="{! v.sObjectForDetails.Id }" />
+            </aura:if>
+        </div>
+    </div>
+    <div class="slds-spinner_container slds-hide" aura:id="spinner">
+        <div class="slds-spinner--brand slds-spinner slds-spinner--medium" role="alert">
+            <span class="slds-assistive-text">Loading</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+        </div>
+    </div>
+</aura:component>

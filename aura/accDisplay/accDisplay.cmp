@@ -1,0 +1,18 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId">
+    <aura:attribute name="accountRecord" type="Account"/>
+    
+    
+<force:recordData aura:id="contactRecordCreator"
+    layoutType="FULL"
+    targetRecord="{!v.newContact}"
+    targetFields="{!v.simpleNewContact}"
+    targetError="{!v.newContactError}"
+    />
+    
+    
+    <ui:outputText value="v.simpleNewContact.Name"/>
+    <ui:outputText value="v.simpleNewContact.Industry"/>
+    <ui:outputTextArea value="v.simpleNewContact.Description"/>
+    <ui:outputPhone value="v.simpleNewContact.Phone"/>
+    
+</aura:component>

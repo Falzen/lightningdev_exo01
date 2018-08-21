@@ -1,0 +1,34 @@
+.THIS {
+background:url("https://bit.ly/1Dy6Eji") no-repeat center center;
+min-height:100%;
+background-size:cover;
+color: darkblue;
+font: Arial;
+margin: 0;
+padding-top:10px;
+padding-bottom:10px;
+}
+.THIS ul {
+list-style-type: none;
+width: 90%;
+padding: 5px;
+position: relative;
+margin: 0 auto;
+}
+.THIS h3 {
+font: bold 20px/1.5 Arial;
+}
+.THIS .minli {
+padding: 10px;
+margin-bottom: 10px;
+overflow: auto;
+background: rgba(255,255,255,.4);
+border-radius: 3px;
+-webkit-border-radius: 3px;
+width:95%;
+}
+.THIS li:hover {
+cursor: pointer;
+}
+.THIS .onTheRight {
+}

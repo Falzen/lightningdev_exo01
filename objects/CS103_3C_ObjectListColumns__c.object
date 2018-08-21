@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>This custom settings define the fields displayed for the ObjectList</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>FieldApiName__c</fullName>
+        <description>Api name of the field</description>
+        <externalId>false</externalId>
+        <label>FieldApiName</label>
+        <length>25</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FieldName__c</fullName>
+        <description>Name of the field</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This the column name displayed</inlineHelpText>
+        <label>FieldName</label>
+        <length>25</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ListName__c</fullName>
+        <description>Name of the list used with this custom setting</description>
+        <externalId>false</externalId>
+        <label>ListName</label>
+        <length>25</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Order__c</fullName>
+        <description>Display order</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Display order</inlineHelpText>
+        <label>Order</label>
+        <precision>18</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Profiles__c</fullName>
+        <description>Liste of profiles who are associated to this custom setting</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Profiles names separated by semi colons</inlineHelpText>
+        <label>Profiles</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Users__c</fullName>
+        <description>List of users associated with this custom setting</description>
+        <externalId>false</externalId>
+        <inlineHelpText>User names separated by semi colons</inlineHelpText>
+        <label>Users</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>isCheckbox__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>If you check this field please dont check isImage and isRadioButton</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If you check this field please dont check isImage and isRadioButton</inlineHelpText>
+        <label>isCheckbox</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>isImage__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Check this if the filed is an image</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If you check this field, please dont check isCheckbox and isRadioButton</inlineHelpText>
+        <label>isImage</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>isRadioButton__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>If you check this field please dont check isImage and isCheckbox</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If you check this field please dont check isImage and isCheckbox</inlineHelpText>
+        <label>isRadioButton</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>isSortable__c</fullName>
+        <defaultValue>true</defaultValue>
+        <description>Uncheck this field if you dont want this column to be sortable (example: custom column for a checkbox)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Uncheck this field if you dont want this column to be sortable (example: custom column for a checkbox)</inlineHelpText>
+        <label>isSortable</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>sObjectName__c</fullName>
+        <description>sObjectName</description>
+        <externalId>false</externalId>
+        <label>sObjectName</label>
+        <length>50</length>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>CS103_3C_ObjectListColumns</label>
+    <visibility>Public</visibility>
+</CustomObject>

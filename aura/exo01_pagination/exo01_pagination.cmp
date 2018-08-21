@@ -1,0 +1,16 @@
+<aura:component>
+    <aura:attribute name="listName" type="String" />
+    <aura:attribute name="currentPageIndex" type="Integer" default="0"/>
+    <aura:attribute name="isPrevActive" type="Boolean" default="false"/>
+    <aura:attribute name="isNextActive" type="Boolean" default="true"/>
+
+    <aura:registerEvent name="exo01_paginationEvent" type="c:exo01_paginationEvent"/>
+
+    <aura:handler event="c:exo01_isLastPageEvent" action="{! c.disableNextBtn }" />
+ 
+    <div class="directions-container">
+        <p class="prev"><a class="{! v.isPrevActive ? '' : 'is-disabled' }" aura:id="prev-btn" onclick="{! v.isPrevActive ? c.prev : '' }" href="">{! $Label.c.Exo01_Previous }</a></p>
+        <p class="next"><a class="{! v.isNextActive ? '' : 'is-disabled' }" aura:id="next-btn" onclick="{! v.isNextActive ? c.next : '' }" href="">{! $Label.c.Exo01_Next }</a></p>
+    </div>
+ 
+</aura:component>

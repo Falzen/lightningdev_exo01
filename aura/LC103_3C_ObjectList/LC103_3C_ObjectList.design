@@ -1,0 +1,11 @@
+<design:component >	
+    <design:attribute name="listName" label="List Name" description="Used for custom settings" required="true" />
+    <design:attribute name="sObjectName" label="sObjectName" description="sObjectName" required="true" />
+    <design:attribute name="activateSearch"  description="Activate the search button" />
+    <design:attribute name="selectAllTheFields"  description="Select all the fields of the object as columns for the search" default="false" />
+    <design:attribute name="limitQuery" description="limit number of results to query" />
+    <design:attribute name="limitDisplay" description="limit number of results to display" />
+    <design:attribute name="lookupQuery" label="Lookup Query" description="Field on wich you append the entered value in the input, default value is Name" />
+    <design:attribute name="lookupValue" label="Lookup Value" description="Field on wich you want to query for the lookups criterion, default value is Id" />
+    <design:attribute name="massAction" label="Mass Action" description="Add checkbox in row of table for action" default="false" />
+</design:component>

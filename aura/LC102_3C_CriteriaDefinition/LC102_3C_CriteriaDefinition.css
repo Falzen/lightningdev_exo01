@@ -1,0 +1,32 @@
+.THIS#criteriaDiv
+{
+    padding-bottom: 19px;
+    background: rgb(255, 255, 255);
+}
+
+.THIS .addCrit
+{
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.THIS #logic
+{
+    padding: 10px;
+    background: #9f9f9f;
+    border-radius: 1px;
+}
+
+.THIS #logic label {
+    color: #FFF;
+}
+
+.THIS .info-search {
+    color: #343434;
+    padding: 8px;
+    text-align: center;
+    margin: 0 0;
+    min-width: 200px;
+    font-size: 1.2em;
+    line-height: 1.2em;
+}

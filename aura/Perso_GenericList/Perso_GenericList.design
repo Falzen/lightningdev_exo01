@@ -1,0 +1,5 @@
+<design:component>
+	    <design:attribute name="sObjectName" label="sObject Name" description="Name of the wanted sObjectName" />
+	    <design:attribute name="nbRecordsPerPage" label="nb Records Per Page" description="Number of results on screen" />
+
+</design:component>

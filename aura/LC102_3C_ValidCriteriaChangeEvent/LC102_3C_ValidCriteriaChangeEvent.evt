@@ -1,0 +1,5 @@
+<aura:event type="Component">
+    <aura:attribute name="validatedChange" type="Boolean" required="true"/>
+    <aura:attribute name="deleteCriteria" type="Boolean" required="false"/>
+    <aura:attribute name="criterion" type="LC102_3C_CriteriaWrapper.CriteriaObject" required="false"/>
+</aura:event>

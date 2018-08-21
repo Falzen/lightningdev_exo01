@@ -1,0 +1,124 @@
+<aura:component controller="LC102_3C_CriteriaDefinition" >
+		
+		<!-- REQUIRED COMPONENT ATTRIBUTES -->
+		<aura:attribute name="sObjectName" type="String" required="true" description="sObject name on wich the criteria are defined" />
+		<aura:attribute name="criterion" type="LC102_3C_CriteriaWrapper.CriteriaObject" required="true" description="criterion object" />
+		<aura:attribute name="allowedFields" type="LC102_3C_CriteriaDefinition.FieldValueWrapper[]" required="true" description="List of the allowed fields" />
+		<aura:attribute name="messageError" type="String" required="true" description="error message" />
+		<aura:attribute name="listName" type="String" description="Name of the ObjectList used with criteria definition" required="true" default="" />
+		
+		<aura:attribute name="value" type="String" />
+		<aura:attribute name="available" type="Boolean" default="false"/>
+
+		<aura:attribute name="valueWrapper" type="LC101_3C_AutocompleteField.ValueWrapper" default="" />
+		<aura:attribute name="valueWrappers" type="LC100_3C_PicklistField.ValueWrapper[]" default="" />
+		<aura:attribute name="lookupObjectNames" type="String[]" />
+		<aura:attribute name="operator" type="String" />
+
+		<!-- Initialisation  -->
+		<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+		
+		<!-- Change Event -->
+		<aura:handler name="change" value="{!v.value}" action="{!c.onTextChange}"/>
+		<aura:handler name="change" value="{!v.valueWrapper}" action="{!c.handleAutocompleteChange}" />
+		<aura:handler name="change" value="{!v.valueWrappers}" action="{!c.handlePicklistChange}"/>
+		
+		<aura:registerEvent name="LC102_3C_ValidCriteriaChangeEvent" type="c:LC102_3C_ValidCriteriaChangeEvent" />
+		
+		<div>
+				<!-- Field Selection !-->
+				<div class="slds-grid slds-wrap slds-grid--align-center line-criterion">
+						
+						<div class="fieldSelection  slds-xx-small-size--3-of-4 slds-x-small-size--1-of-4 slds-small-size--1-of-4  slds-medium-size--1-of-8 slds-large-size--1-of-8">
+							<div class="fieldLogicNumber">
+									{!v.criterion.logicNumber}
+							</div>
+
+							<div class="delete-critera">
+								<lightning:button variant="neutral" iconName="utility:delete" iconPosition="left" onclick="{! c.delete }" />
+							</div>
+						</div>
+						
+						<!-- fieldName -->
+						<div class="fieldSelection  slds-xx-small-size--3-of-4 slds-x-small-size--3-of-4 slds-small-size--2-of-4  slds-medium-size--2-of-8 slds-large-size--2-of-8">
+							<div class="fieldPad">
+								<ui:inputSelect aura:id="criterionSelect0" class="slds-select" change="{!c.onFieldSelection0}" disabled="{!v.criterion.available}" />
+
+								<aura:if isTrue="{!v.criterion.sObjectNames.length > 1}">
+									<ui:inputSelect aura:id="criterionSelect1" class="slds-select" change="{!c.onFieldSelection1}" disabled="{!v.criterion.available}" />
+									<aura:if isTrue="{!v.criterion.sObjectNames.length > 2}">
+										<ui:inputSelect aura:id="criterionSelect2" class="slds-select" change="{!c.onFieldSelection2}" disabled="{!v.criterion.available}" />
+										<aura:if isTrue="{!v.criterion.sObjectNames.length > 3}">
+											<ui:inputSelect aura:id="criterionSelect3" class="slds-select" change="{!c.onFieldSelection3}" disabled="{!v.criterion.available}" />
+										</aura:if>
+									</aura:if>
+								</aura:if>
+							</div>
+						</div>
+
+						<!-- Opperator -->
+						<div class="fieldOperator flex-end slds-xx-small-size--3-of-4 slds-x-small-size--3-of-4 slds-small-size--2-of-4  slds-medium-size--2-of-8 slds-large-size--2-of-8">
+							<div class="fieldPad">
+								<ui:inputSelect aura:id="operator" change="{!c.onOperatorSelection}" class="slds-hide slds-select" multiple="false" disabled="{!v.criterion.available}" />
+							</div>
+						</div>
+
+						<!-- Input of type -->
+						<div class="fieldInput flex-end slds-xx-small-size--3-of-4 slds-x-small-size--3-of-4 slds-small-size--2-of-4  slds-medium-size--2-of-8 slds-large-size--2-of-8">
+							<div class="fieldPad">
+								<aura:if isTrue="{!v.criterion.displayType == 'lookup'}">    
+										<c:LC101_3C_AutoCompleteField autocompleteSObjectName="{!v.criterion.fieldName}"
+																									fieldAPI="{!v.criterion.fieldName}"
+																									autocompleteFieldQuery="{!v.criterion.lookupFieldQuery}"
+																									autocompleteFieldValue="{!v.criterion.lookupFieldValue}"
+																									autocompleteOptionalFilters=""
+																									autocompleteDistinct="false"
+																									lookupObjectName="{!v.criterion.lookupObjectName}"
+																									lookupObjectNames="{! v.lookupObjectNames }"
+																									fieldValue="{!v.valueWrappers}"
+																									disabled="{!v.criterion.available}"
+																									loading="true"
+																									/>
+								</aura:if>   
+								<aura:if isTrue="{!v.criterion.displayType == 'picklist'}" >
+										<c:LC100_3C_PicklistField sObjectName="{!v.criterion.parentObjectName}"
+																							fieldAPI="{!v.criterion.fieldName}"
+																							multiselect="true"
+																							fieldValue="{!v.valueWrappers}"
+																							disabled="{!v.criterion.available}"
+																							/>
+								</aura:if>
+								<aura:if isTrue="{!v.criterion.displayType == 'text'}" >
+										<ui:inputText value="{!v.value}" change="{!c.onTextChange}" disabled="{!v.criterion.available}" />
+								</aura:if>
+								
+								<aura:if isTrue="{!v.criterion.displayType == 'date'}" >
+										<ui:inputDate aura:id="dateField" change="{!c.onTextChange}"  value="{!v.value}" displayDatePicker="true" disabled="{!v.criterion.available}"/>
+								</aura:if>
+								
+								<aura:if isTrue="{!v.criterion.displayType == 'datetime'}" >
+										<ui:inputDateTime aura:id="dateTimeField" change="{!c.onTextChange}"  value="{!v.value}" displayDatePicker="true" disabled="{!v.criterion.available}"/>
+								</aura:if>
+								
+								<aura:if isTrue="{!v.criterion.displayType == 'time'}" >
+										<input type="time" change="{!c.onTextChange}"  name="anniversaire" disabled="{!v.criterion.available}" />
+								</aura:if>
+								
+								<aura:if isTrue="{!v.criterion.displayType == 'checkbox'}" >
+										<ui:inputCheckbox aura:id="checkbox" change="{!c.onCheck}" disabled="{!v.criterion.available}"/>
+								</aura:if>
+							</div>
+						</div>
+
+						<!-- Validation -->
+						<div class="fieldSelection flex-end slds-xx-small-size--3-of-4 slds-x-small-size--1-of-4 slds-small-size--1-of-4  slds-medium-size--1-of-8 slds-large-size--1-of-8">
+							<div class="slds-checkbox_add-button valide-criteria">
+								<input type="checkbox" id="{! 'add-checkbox-' + v.criterion.logicNumber}" value="{! v.criterion.available }" class="slds-assistive-text" disabled="{! v.criterion.operator == null || v.criterion.operator == undefined || v.criterion.operator == '' || v.criterion.operator == '-- please select an operator --' }" /> 
+								<label for="{! 'add-checkbox-' + v.criterion.logicNumber}" class="slds-checkbox_faux" onclick="{! c.onAvailable }" >
+									<span class="slds-assistive-text">Valide criteria</span>
+								</label>
+							</div>
+						</div>
+				</div>        
+		</div>
+</aura:component>

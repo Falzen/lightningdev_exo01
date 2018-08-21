@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION">
+    <aura:attribute name="listName" type="String"/>
+    <aura:attribute name="pageIndex" type="Integer"/>
+</aura:event>

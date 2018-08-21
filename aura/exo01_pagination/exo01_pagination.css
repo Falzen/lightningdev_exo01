@@ -1,0 +1,13 @@
+.THIS.directions-container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    width: 50%;
+    margin: 10px auto;
+}
+.THIS p a {
+    font-size: 14px;
+}
+.THIS .is-disabled {
+    color: grey !important;
+}

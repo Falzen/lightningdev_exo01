@@ -1,0 +1,19 @@
+<aura:component >
+	
+	<aura:attribute name="record" type="sObject" access="global"/>
+	<aura:attribute name="sobjectname" type="String" access="global"/>
+	<aura:attribute name="fields" type="String[]" access="global"/>
+	<aura:attribute name="rowvalue" type="String[]"/>
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+	<tr>
+		<aura:iteration items="{!v.rowvalue}" var="value">
+			<td>{!value}</td>
+		</aura:iteration>
+		<td><input type="radio" name="record_select" value="{!v.record.Id}" onchange="{!c.recordSelected}" /></td>
+	</tr>
+
+
+
+
+</aura:component>

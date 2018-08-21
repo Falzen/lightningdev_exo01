@@ -1,0 +1,18 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global">
+    
+    <aura:attribute name="item" type="Object" />
+    <aura:attribute name="headerList" type="String[]" />
+    
+    <aura:attribute name="objectListToDisplay" type="Object[]" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <tr class="slds-hint-parent" onclick="{! c.goToDetails }">
+        
+        <aura:iteration items="{! v.objectListToDisplay }" var="oneItem" >
+            <td data-label="{! oneItem.label }">
+                <div class="slds-truncate " title="{! oneItem.label }">{! oneItem.value }</div>
+            </td>
+        </aura:iteration>
+         
+    </tr> 
+</aura:component>

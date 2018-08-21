@@ -1,0 +1,5 @@
+<aura:component >
+    
+    <aura:attribute name="toto" type="String" />   
+	<p>{! v.toto }</p>
+</aura:component>

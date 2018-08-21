@@ -1,0 +1,38 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" >
+    
+    
+    <aura:attribute name="event" type="Event" default=""/>
+    
+    
+    <div class="list-item-container slds-grid slds-wrap slds-grid_pull-padded">
+        <div class="avatar slds-p-horizontal_small slds-size_3-of-12">
+            <img src="https://png.icons8.com/?id=49484" alt="{! v.event }" />
+        </div>
+        
+        <div class="main-infos slds-p-horizontal_small slds-size_6-of-12">
+            <p>Lorem ipsum dolor sit amet.</p>
+            <p>Obcaecati quia, maxime saepe omnis.</p>
+            <p class="address">Magnam magni, reprehenderit necessitatibus nostrum.</p>
+            <p>Nulla velit vitae soluta aspernatur!</p>
+        </div>
+        
+        <div class="side-infos slds-p-horizontal_small slds-size_3-of-12">
+            <p class="onething">Lorem dolor</p>
+            <p class="anotherthing"><span>Adipisci</span></p>
+            <div class="choices-container slds-grid">
+                <div>
+                    <img class="slds-col" src="https://cdn1.iconfinder.com/data/icons/talk-bubble-icons/512/popup_bubble_512-01-128.png" alt="Décrire l'action" />
+                </div>
+                <div>
+                    <img class="slds-col" src="https://cdn1.iconfinder.com/data/icons/talk-bubble-icons/512/popup_bubble_512-01-128.png" alt="Décrire l'action" />
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+    
+    
+    
+    
+</aura:component>

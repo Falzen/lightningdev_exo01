@@ -1,0 +1,34 @@
+.THIS
+{
+    border-left: 5px solid #595959;
+	background: whitesmoke;
+	border-radius: 0 20px 20px 0;
+	padding: 0 5%;
+}
+
+.THIS .line-criterion {
+	width: 100%;
+	margin: 0 0 8px 0px;
+}
+
+.THIS .fieldPad {
+	margin: 5px 5px 0 0;
+}
+
+.THIS .flex-end {
+    align-self: flex-end;
+}
+.THIS .fieldLogicNumber
+{
+    padding: 0.25rem;
+    font-size: 1.7em;
+    float: left;
+}
+
+.THIS .valide-criteria, .THIS .delete-critera {
+	margin: 0.25rem 0 0 5px;
+}
+
+.THIS .fieldLogicNumber, .THIS .delete-critera {
+	display: inline-block;
+}

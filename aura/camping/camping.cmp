@@ -1,0 +1,12 @@
+<aura:component >
+    
+
+    <aura:attribute name="message" type="String"/>
+    
+    
+
+    <p><ui:outputText value="{!'Hello ' + v.message + '!'}" /></p>
+
+    <c:campingHeader />
+    <c:campingList />
+</aura:component>

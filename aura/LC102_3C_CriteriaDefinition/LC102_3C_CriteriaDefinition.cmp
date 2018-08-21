@@ -1,0 +1,73 @@
+<aura:component controller="LC102_3C_CriteriaDefinition" implements="flexipage:availableForAllPageTypes" access="global">
+	
+	<!-- REQUIRED COMPONENT ATTRIBUTES -->
+	
+	<aura:attribute name="sObjectName" type="String" required="true" description="sObject name on wich the criteria are defined" />
+	<aura:attribute name="listName" type="String" description="Name of the ObjectList used with criteria definition" required="true" default="" />
+	<aura:attribute name="lookupQuery" type="String" description="Field on wich you append the entered value in the input" default="Name"/>
+	<aura:attribute name="lookupValue" type="String" description="Field on wich you want to query for the lookups criterion" default="Id"/>
+	<aura:attribute name="activateSearch" type="Boolean" description="Activate the search button" />
+	<aura:attribute name="activateClear" type="Boolean"  description="Activate the clear button" />
+	<aura:attribute name="activateLogic" type="Boolean"  description="Activate the logic process options" />
+	<aura:attribute name="displayCriteria" type="Boolean"  />
+	<aura:attribute name="allowedFields" type="LC102_3C_CriteriaDefinition.FieldValueWrapper[]" />
+	<aura:attribute name="criteria" type="LC102_3C_CriteriaWrapper.CriteriaObject[]" />
+	<aura:attribute name="criteriaText" type="String" />
+	<aura:attribute name="messageError" type="String" default="TEST" />
+	<aura:attribute name="logic" type="String" default="" description="Not required, define the criteria logic operation"/>
+	
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>    
+	<aura:handler name="LC102_3C_ValidCriteriaChangeEvent" event="c:LC102_3C_ValidCriteriaChangeEvent" action="{!c.handleValidCriteriaChangeEvent}" />
+	
+	<aura:registerEvent name="LC102_3C_ValidCriteriaChangedEvent" type="c:LC102_3C_ValidCriteriaChangedEvent" />
+	<aura:registerEvent name="LC103_3C_SearchRequestEvent" type="c:LC103_3C_SearchRequestEvent" />
+	
+	<aura:handler name="change" value="{!v.logic}" action="{!c.handleValidCriteriaChangeEvent}"/>
+
+	<div id="criteriaDiv">
+		<div class="slds-clearfix">
+			<a onclick="{!c.toggleCriteria}" class="slds-float_left">
+				<aura:if isTrue="{!v.displayCriteria}">
+					<lightning:icon iconName="utility:chevronup" size="medium" alternativeText="Hide criteria" title="{!v.criteriaText}"/>
+				</aura:if>
+				<aura:if isTrue="{!v.displayCriteria == false}">
+					<lightning:icon iconName="utility:chevrondown" size="medium" alternativeText="Show criteria" title="{!v.criteriaText}"/>
+				</aura:if>
+			</a>
+			<aura:if isTrue="{! v.messageError.length > 0 }">
+				<div class="info-search slds-float_left">{! v.messageError }</div>
+			</aura:if>
+		</div>
+
+		<div aura:id="CriteriaDefinition">
+			<lightning:spinner aura:id="mySpinner" />
+			
+			<div class="slds-grid slds-wrap slds-grid_pull-padded">
+				<div class="slds-p-horizontal_small slds-size_1-of-2 slds-medium-size_5-of-6 slds-large-size_8-of-12">
+					<aura:iteration items="{!v.criteria}" var="criterion">
+						<c:LC102_3C_CriteriaDefinitionItem criterion="{!criterion}" listName="{! v.listName }" allowedFields="{!v.allowedFields}" messageError="{! v.messageError }" sObjectName="{! v.sObjectName }" />   
+					</aura:iteration>
+				</div>
+				<aura:if isTrue="{!v.activateLogic}">
+					<div class="slds-p-horizontal_small slds-size_1-of-2 slds-medium-size_1-of-6 slds-large-size_4-of-12">
+						<div id="logic">
+							<ui:inputText label="(Optionnal) Logic with logic number of the criteria, example : 1 AND (2 OR 3)" value="{!v.logic}" />
+						</div>
+					</div>
+				</aura:if>
+			</div>
+			
+			<div class="slds-grid slds-wrap slds-grid--align-center">
+				<lightning:button variant="neutral" label="Add criterion" iconName="utility:add" iconPosition="left" onclick="{! c.addCriterion }" />
+				
+				<aura:if isTrue="{!v.activateSearch}">
+					<lightning:button variant="neutral" label="Launch the search" iconName="utility:search" iconPosition="left" onclick="{! c.sendSearchRequest }" />
+				</aura:if>
+				<aura:if isTrue="{!v.activateClear}">
+					<lightning:button variant="neutral" label="Clear criteria" iconName="utility:clear" iconPosition="left" onclick="{! c.clearCriteria }" />
+				</aura:if>
+			</div>
+			
+		</div>
+	</div>
+</aura:component>

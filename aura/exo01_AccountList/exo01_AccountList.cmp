@@ -1,0 +1,41 @@
+<aura:component controller="exo01_Controller">
+
+    <aura:attribute name="allAccounts" type="Account[]" />
+    <aura:attribute name="accountsToDisplay" type="Account[]" />
+    <aura:attribute name="userInput" type="String" />
+    <aura:attribute name="withPagination" type="Boolean" default="false"/>
+    <aura:attribute name="listName" type="String" default="AccountList" />
+
+    <aura:registerEvent name="exo01_isLastPageEvent" type="c:exo01_isLastPageEvent" />
+
+
+
+
+    <!-- This component subscribes to the event "exo01_fromSearchbarEvent" with thie <aura:handler />
+        It triggers the JS controller method "filterAccountList" and passes it the event as argument -->
+    <aura:handler event="c:exo01_fromSearchbarEvent" action="{!c.filterAccountList}" />
+
+    <!-- reacts to click on "prev" and "next" page buttons -->
+    <aura:handler event="c:exo01_paginationEvent" action="{!c.refreshListFromPagination}" />
+
+
+    <!-- This triggers the method "doInit" when the component is ready -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+
+    <div id="accountList-container">
+        <!-- Custom label : words ans sentences should never be hard-coded, always custom labels -->
+        <h1>{! $Label.c.Exo01_acc_list }</h1>
+        <div class="searchbar-container">
+            <c:exo01_searchbar isAutoSearching="true" />
+            <c:exo01_searchbar isAutoSearching="false" />
+        </div>
+        <ul>
+            <aura:iteration items="{! v.accountsToDisplay }" var="oneAccount">
+                    <c:exo01_AccountListItem account="{! oneAccount }" />
+            </aura:iteration>
+        </ul>
+
+
+    </div>
+</aura:component>

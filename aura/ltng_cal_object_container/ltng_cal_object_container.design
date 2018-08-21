@@ -1,0 +1,6 @@
+<design:component label="Lightning Calendar Related List">
+	<design:attribute name="sobjectname" label="sObject Name" description="Please enter name of sObject e.g. Account" />
+	<design:attribute name="sfieldnames" label="Field Names" description="Please enter comma separated fields names e.g. Id,Name" />
+	<design:attribute name="sfieldlabels" label="Field Labels" description="(Optional) Please enter comma separated 'Labels' to display on table" />
+
+</design:component>

@@ -1,0 +1,43 @@
+<aura:component controller="LC02_TreeLeafController">
+    
+    <!-- one tree node -->    
+    <aura:attribute name="item" type="Object" />
+    <!-- tree depth -->    
+    <aura:attribute name="level" type="Integer" default="1" />
+    <!-- default display : "slds-is-collapsed" || "slds-is-expanded" -->
+    <aura:attribute name="isExpanded" type="Boolean" default="false" />
+    
+    
+    <aura:registerEvent name="treeLeafSelected" type="c:treeLeafSelected"/>
+
+    
+    <li id="tree0-node0" role="treeitem" aria-level="{! v.level }" aria-expanded="true">
+        <div class="slds-tree__item">
+            
+            <aura:if isTrue="{! and(v.item.childCategories.length, !v.isExpanded) }">
+                <lightning:icon iconName="utility:chevronright" size="xx-small" alternativeText="Indicates approval"/>
+            </aura:if>
+            <aura:if isTrue="{! and(v.item.childCategories.length, v.isExpanded) }">
+                <lightning:icon iconName="utility:chevrondown" size="xx-small" alternativeText="Indicates approval"/>
+            </aura:if>
+            
+            <button onclick="{! v.item.childCategories.length ? c.toggleNode : c.fireLeafChoice}" class="slds-button slds-button_icon slds-m-right_x-small" title="Toggle">
+                {! v.item.label }
+                <span class="slds-assistive-text"></span>
+            </button>
+            
+            <a href="javascript:void(0);" tabindex="-1" role="presentation" class="slds-truncate" title="Tree Item"></a>
+        </div>
+        
+        <!-- if has branches -->
+        <aura:if isTrue="{! v.item.childCategories.length }">
+            <ul class="{! v.isExpanded ? 'slds-is-expanded' : 'slds-is-collapsed' }" role="group" aria-labelledby="tree0-node1__label" aura:id="nestedItemsList">  
+                <aura:iteration items="{! v.item.childCategories}" var="nestedItem">                       
+                    <c:LC02_DataCategoryTreeLevel item="{! nestedItem }" level="{! v.level + 1}" />
+                </aura:iteration>
+            </ul>
+        </aura:if>
+        
+    </li>
+    
+</aura:component>

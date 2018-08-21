@@ -1,0 +1,83 @@
+<aura:component controller="LC100_3C_PicklistField" >
+
+    <!-- REQUIRED COMPONENT ATTRIBUTES -->
+    <aura:attribute name="sObjectName" type="String" description="SObject to get field from. If blank - values are not fetched from server, but taken from valuesJSON variable"/>
+    <aura:attribute name="fieldAPI" type="String" description="Field API to get piclkist values for. If blank - values are not fetched from server, but taken from valuesJSON variable"/>
+    <aura:attribute name="multiselect" type="Boolean" required="true" description="If true, allows to add multiple values" default="false"/>
+    <aura:attribute name="disabled" type="Boolean" default="false" description="If true, the component is disabled"/>
+    <aura:attribute name="preselectAll" type="Boolean" description="If true, all values are preselected on init" default="false"/>
+    <aura:attribute name="valuesJSON" type="String" description="Values to search on, taken from outside of the component"/>
+    <aura:attribute name="fieldValueJSON" type="String" 
+        description="
+            This attribute keeps the current value of the picklist as JSON and also allows for initial preselection of picklist entries:
+            There are three possible options of preselection: 
+            1. [{'value': 'x', 'label': 'labelOfX'}]
+            2. [{'value': 'x', 'label': ''}] - in this case label will be taken from AJAX or valuesJSON
+            3. ['x'] - in this case label will be taken from AJAX or valuesJSON, and transformed into 1. form
+        "
+    /> 
+
+    <!-- CURRENT VALUE -->
+    <aura:attribute name="fieldValue" type="LC100_3C_PicklistField.ValueWrapper[]" description="Selected Value"/>
+
+    <!-- ATTRIBUTE USED TO TOOGLE RE-INITIALIZATION -->
+    <aura:attribute name="reInitialize" type="boolean"/> <!--default="false"/-->
+    <aura:handler name="change" value="{!v.reInitialize}" action="{!c.reInitialize}"/>
+    <aura:attribute name="ready" type="boolean" default="false"/>
+
+    <!-- HELPER ATTRIBUTES -->
+    <aura:attribute name="values" type="Object[]" description="Values to search on"/>
+    <aura:attribute name="preselectedValues" type="Object[]" description="Preselected values that are shown in the list on init"/>
+    <aura:attribute name="select2Initialized" type="Boolean" description="Boolean value indicating whether select2 is applied" default="false"/>
+    <aura:attribute name="loading" type="Boolean" description="Boolean value controlling spinner visibility" default="true"/>
+
+    <!-- EVENTS -->
+    <aura:registerEvent name="picklistValueChangedEvent" type="c:LC100_3C_PicklistValueChange"/>
+    <aura:registerEvent name="LC100_3C_PicklistValueChangedEventApp" type="c:LC100_3C_picklistValueChangedEventApp"/>
+
+    <!-- EVENT HANDLERS -->
+    <aura:handler name="picklistValueChangedEvent" action="{!c.handlePicklistValueChangedEvent}"/>
+    <aura:handler name="destroy" value="{!this}" action="{!c.destroyComponentHandler}"/>
+
+    <!-- RESOURCE DEPENDENCIES -->
+    <ltng:require styles="{!join(',',
+            $Resource.LightningDesignSystem + '/assets/styles/salesforce-lightning-design-system-scoped.css',
+            $Resource.select2v403 + '/select2-4.0.3/css/select2.min.css')}"
+        scripts="{!join(',',
+            $Resource.jQueryLightningBundle + '/jquery-2.2.4.min.js',
+            $Resource.jQueryLightningBundle + '/jquery-ui-1.12.1.min.js',
+            $Resource.select2v403 + '/select2-4.0.3/js/select2.min.js',
+            $Resource.select2v403 + '/select2-4.0.3/js/i18n/de.js',
+            $Resource.select2v403 + '/select2-4.0.3/js/i18n/en.js',
+            $Resource.select2v403 + '/select2-4.0.3/js/i18n/es.js',
+            $Resource.select2v403 + '/select2-4.0.3/js/i18n/fr.js',
+            $Resource.select2v403 + '/select2-4.0.3/js/i18n/it.js',
+            $Resource.select2v403 + '/select2-4.0.3/js/i18n/pt.js',
+            $Resource.dependentPicklistUtils + '/dependentPicklistUtils.js')}"
+        afterScriptsLoaded="{!c.initialize}"
+    />
+
+
+    <!-- COMPONENT BODY -->
+    <div style="display: block; position: relative;">
+
+        <aura:if isTrue="{!v.loading}">
+            <div class="picklist-spinner-container">
+                <div class="picklist-spinner-img"></div>
+            </div>
+        </aura:if>
+
+        <div>
+            <select aura:id="picklistSelectBox" class="slds-select" multiple="{!v.multiselect}" disabled="{!v.disabled}"></select>
+        </div>
+    </div>
+
+    <!-- STYLES THAT APPLY OUT OF Component Scope -->
+    <style>
+        .select2-container li {
+            margin-left: 0 !important;
+            margin-bottom: 0 !important;
+        }
+    </style>
+    
+</aura:component>

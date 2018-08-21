@@ -1,0 +1,20 @@
+.THIS .listNavigation{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    
+    width: 150px;
+}
+
+.THIS .listNavigation-container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;  
+}
+
+.THIS .isDisabled {
+    color: currentColor;
+    cursor: not-allowed;
+    opacity: 0.5;
+    text-decoration: none;
+}

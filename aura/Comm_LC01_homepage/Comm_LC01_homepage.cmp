@@ -1,0 +1,5 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global">
+    <aura:attribute name="greeting" type="String" />
+
+    <h1>test</h1>
+</aura:component>

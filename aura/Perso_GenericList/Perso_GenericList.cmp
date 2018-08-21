@@ -1,0 +1,89 @@
+<aura:component controller="Perso_GenericListController" implements="forceCommunity:availableForAllPageTypes" access="global">
+
+<aura:attribute name="sObjectName" type="String" />
+<aura:attribute name="headerList" type="Object[]" />
+<aura:attribute name="objectList" type="Object[]" />
+<aura:attribute name="hasNoMoreRecords" type="Boolean" default="false"/>
+
+
+<aura:attribute name="orderByFieldName" type="String" />
+<aura:attribute name="orderByDirection" type="String" default="ASC"/>
+<aura:attribute name="pageIndex" type="Integer" default="0"/>
+<aura:attribute name="nbRecordsPerPage" type="Integer" default="10"/>
+
+<!--
+<aura:registerEvent name="exo01_selectedSobjectId" type="c:exo01_selectedSobjectId"/> 
+<aura:handler event="c:exo01_selectedSobjectId" action="{!c.setAccountIsSelected}"/>
+-->
+<aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<!-- 
+One iteration to create each column head
+One iteration to create each row
+    Inside each row, iteration on columnheads to create each <td>
+    Each <td> needs label to display AND its field's apiname:
+        When responsive there are no columns, only cards (and each data needs its label)
+-->
+<div class="genericList-container slds-table--header-fixed_container">
+<table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal ">
+    <thead>
+        <tr class="slds-text-title_caps">
+            <aura:iteration items="{! v.headerList }" var="oneColumn" >
+            <th scope="col">
+                <div class="slds-truncate slds-cell-fixed" title="{! oneColumn.apiName }">{! oneColumn.label }
+                    <button class="slds-button slds-button_icon slds-button_icon" title="Sort">
+                <!-- <svg class="slds-button__icon slds-button__icon_small" aria-hidden="true">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#arrowdown" />
+                </svg> -->
+                        <span class="slds-assistive-text">Sort</span>
+                    </button>
+                </div>
+            </th>
+            </aura:iteration>
+        </tr>
+    </thead>
+    <tbody>
+        <aura:iteration items="{! v.objectList }" var="oneItem" >
+            <c:Perso_GenericListItem item="{! oneItem }" headerList="{! v.headerList }"/>
+        </aura:iteration>
+    </tbody>
+</table>
+
+<div class="listNavigation-container">
+    <div class="listNavigation">
+        <a href="" onclick="{! c.previousPage }" class="{! v.pageIndex == 0 ? 'oneLink isDisabled' : 'oneLink' }">Previous</a>
+        <span>{! v.pageIndex + 1 }</span>
+        <a href="" onclick="{! c.nextPage }" class="{! v.hasNoMoreRecords ? 'oneLink isDisabled' : 'oneLink' }">Next</a>
+    </div>
+</div>
+
+
+
+
+</div><!-- end genericList-container -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+</aura:component>

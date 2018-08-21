@@ -1,0 +1,28 @@
+.THIS#contactList-container {
+    background-color: #fafafa;
+    box-shadow: 0 0 7px 0px grey;
+    padding: 12px;
+    min-height: 600px;
+}
+.THIS h1 {
+    text-align: center;
+    border-bottom: 1px solid grey;
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+.THIS ul {
+    list-style: initial;
+    padding: 35px 5px 5px 15px;
+}
+
+.THIS .contact-details-content {
+    width: 300px;
+    height: 300px;
+}
+
+.THIS .forceRecordView {
+    min-width: 500px;
+    max-height: 450px;
+    overflow-y: scroll;
+    margin-top: 50px;
+}

@@ -1,0 +1,16 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global">
+    
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="isRecordIdReady" type="Boolean" default="false"/>
+    <aura:handler name="init" value="{! this }" action="{! c.doInit }" />
+    
+    <aura:if isTrue="{! v.isRecordIdReady }">
+        <lightning:recordViewForm 
+                                  recordId="{! v.recordId }" 
+                                  objectApiName="Apprenticeship__c"> 
+            
+        </lightning:recordViewForm>
+            
+        </aura:if>
+        
+    </aura:component>

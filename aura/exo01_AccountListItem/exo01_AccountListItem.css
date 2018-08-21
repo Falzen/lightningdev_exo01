@@ -1,0 +1,35 @@
+.THIS {
+    padding: 5px 0px 10px 0;
+    border-bottom: 1px solid grey;
+    cursor: pointer;
+    position: relative;
+}
+
+.THIS:nth-child(odd) {
+    background-color: #f0f0f0;
+}
+.THIS:nth-child(even) {
+    background-color: whitesmoke;
+}
+
+.THIS:hover {
+    background-color: white;
+}
+.THIS.isCurrentItem {
+    background-color: lightgreen !important;
+}
+.THIS.isCurrentItem::after {
+    content: '➜';
+    position: absolute;
+    height: 100%;
+    top: 0;
+    right: 10px;
+    color: darkolivegreen;
+    font-size: 30px;
+    line-height: 35px;
+
+
+}
+.THIS.has-no-children {
+    background-color: rgba(250,100,100,0.1);
+}

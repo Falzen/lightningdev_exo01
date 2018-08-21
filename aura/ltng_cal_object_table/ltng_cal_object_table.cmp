@@ -1,0 +1,36 @@
+<aura:component controller="StandardSetController">
+	<ltng:require styles="/resource/gpcal_lex_yo_SLDS0121/assets/styles/salesforce-lightning-design-system-ltng.css" 
+		scripts="/resource/gpcal_lex_yo_jquery"
+		afterScriptsLoaded="{!c.doInit}"
+	/>
+
+	
+	<aura:attribute name="sobjectname" type="String" access="global"/>
+	<aura:attribute name="sfieldnames" type="String" access="global" default="Id,Name"/>
+	<aura:attribute name="sfieldlabels" type="String" access="global" default=""/>
+	<aura:attribute name="ipage" type="Integer" access="global" default="1"/>
+	<aura:attribute name="ipagesize" type="Integer" access="global" default="5"/>
+	<aura:attribute name="records" type="sObject[]"/>
+	<aura:attribute name="fields" type="String[]"/>
+	<aura:attribute name="labels" type="String[]"/>
+	
+	<aura:handler event="c:ltng_cal_object_filter_event" action="{!c.loadRecords}"/>
+
+    <div class="slds" style="margin-top:5px;">    	 
+    	 <table class="slds-table slds-table--bordered">
+    	 	<thead>
+    	 		<tr>
+	    	 		<aura:iteration items="{!v.labels}" var="field">
+	    	 			<th>{!field}</th>
+	    	 		</aura:iteration>
+	    	 		<th>Select</th>
+    	 		</tr>    	 		
+    	 	</thead>
+			<tbody>
+    	 		<aura:iteration items="{!v.records}" var="record">
+    	 			<c:ltng_cal_object_table_row record="{!record}" sobjectname="{!v.sobjectname}" fields="{!v.fields}" />
+    	 		</aura:iteration>
+    	 	</tbody>
+    	 </table>
+    </div>
+</aura:component>

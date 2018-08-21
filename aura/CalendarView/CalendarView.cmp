@@ -1,0 +1,16 @@
+<aura:component controller="CalendarController" implements="force:hasRecordId,force:hasSObjectName">
+<ltng:require styles="/resource/gpcal_lex_yo_SLDS0121/assets/styles/salesforce-lightning-design-system-ltng.css,/resource/gpcal_lex_yo_fullcalendar/fullcalendar-2.6.0/fullcalendar.css" 
+	scripts="/resource/gpcal_lex_yo_jquery,/resource/gpcal_lex_yo_fullcalendar/fullcalendar-2.6.0/lib/moment.min.js,/resource/gpcal_lex_yo_fullcalendar/fullcalendar-2.6.0/fullcalendar.js"
+	afterScriptsLoaded="{!c.doInit}"
+/>
+
+	<aura:attribute name="recordId" type="String" access="global"/>
+	<aura:attribute name="sObjectName" type="String" access="global"/>	
+	<aura:attribute name="user_id" type="String" />
+
+	<aura:handler event="c:CalendarUserId" action="{!c.loadCalendar}"/>
+	<aura:handler event="c:ltng_cal_object_record_selected" action="{!c.recordSelected}"/>
+
+    
+	<div id='calendar' style="margin-top:5px;"></div>
+</aura:component>

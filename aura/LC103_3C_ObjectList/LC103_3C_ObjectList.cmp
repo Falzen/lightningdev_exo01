@@ -1,0 +1,242 @@
+<aura:component controller="LC103_3C_ObjectList" implements="flexipage:availableForAllPageTypes" access="global">    
+    
+    <aura:attribute name="loading" type="Boolean" default="false" />
+
+    <!-- ATTRIBUTES FOR COMPONENT CONFIGURATION !-->
+    <aura:attribute name="lookupQuery" type="String" description="Field on wich you append the entered value in the input" default="Name"/>
+    <aura:attribute name="lookupValue" type="String" description="Field on wich you want to query for the lookups criterion" default="Id"/>
+    <aura:attribute name="listName" type="String" description="Name of the ObjectList used with criteria definition" default="" />
+    <aura:attribute name="activateSearch" type="Boolean" description="Activate the search button" default="true"/>
+    <aura:attribute name="selectAllTheFields" type="Boolean" description="Select all the fields of the object as columns for the search" default="false" />
+    <aura:attribute name="sObjectName" type="String" />
+    <aura:attribute name="logic" type="String" default="" description="Not required, define the criteria logic operation"/>
+    <aura:attribute name="massAction" type="Boolean" description="Add checkbox in row of table for action" default="false" />
+
+    <!-- LIMIT -->
+    <aura:attribute name="limitQuery" type="Integer" default="1000" description="limit number of results to query" />
+    <aura:attribute name="limitDisplay" type="Integer" default="25" description="limit number of results to display" />
+    <aura:attribute name="offset" type="Integer" default="0" description="offset for the query" />
+
+    <aura:attribute name="countRows" type="Integer" default="0" description="count all rows in query" />
+    <aura:attribute name="page" type="Integer" default="1" description="page of query" />
+    <aura:attribute name="pageMax" type="Integer" default="0" description="page of query" />
+    <aura:attribute name="next" type="boolean" default="true" />
+    <aura:attribute name="prev" type="boolean" default="true" />
+
+    <!-- SORT -->
+    <aura:attribute name="sortMethod" type="String" default="ASC" description="Sort method ASC or DESC" />
+    <aura:attribute name="columnToSort" type="Integer" default="-1" description="The field used to order the query" />
+    
+    <!-- ATTRIBUTE USED TO BUILD THE SEARCH AND TO DISPLAY IT !-->
+    <aura:attribute name="searchObject" type="LC103_3C_ObjectList.SearchObject" />
+    <aura:attribute name="columns" type="LC103_3C_ObjectList.ColumnObject[]" />
+    <aura:attribute name="results" type="LC103_3C_ObjectList.ResultObject[]" />
+    <aura:attribute name="selectAll" type="Boolean" default="false" />
+    <aura:attribute name="childrens" type="LC103_3C_ObjectList.ChildObject[]" />
+    <aura:attribute name="children" type="LC103_3C_ObjectList" />
+
+    <!-- ATTRIBUTES HANDLED WHEN CRITERIA CHANGED AND ARE VALIDATED - With a SearchObject as a parameter !-->
+    <aura:handler event="c:LC102_3C_ValidCriteriaChangedEvent" action="{!c.handleCriteriaChange}" /> 
+    <aura:handler event="c:LC103_3C_SearchRequestEvent" action="{!c.handleSearchRequest}" />    
+    
+    <!-- Initialisation Handling !-->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />    
+    
+
+    <div id="listContent">
+     <!--
+        <aura:attribute name="listOptions" type="List" default="[]"/>
+        <aura:attribute name="defaultOptions" type="List" default="[]"/>
+        <aura:attribute name="requiredOptions" type="List" default="[]"/>
+        <lightning:dualListbox aura:id="selectOptions" name="Select Options"  label= "Select Options" 
+                               sourceLabel="Available Options" 
+                               selectedLabel="Selected Options" 
+                               options="{! v.listOptions }"
+                               value="{! v.defaultOptions }"
+                               requiredOptions="{! v.requiredOptions }"
+                               onchange="{! c.handleChange }"/> -->
+        
+        <h2 class="slds-text-heading--large ">{! v.sObjectName } ({!v.countRows} )</h2>
+
+        <div class="pagination">
+            <div>Page {! v.page} / {!v.pageMax}</div>
+            <ui:button class="slds-button slds-button--neutral slds-p-horizontal--xx-small" press="{!c.Previous}" disabled="{!v.prev}">
+                <span class="slds-icon slds-icon-text-default">
+                    &#9664;
+                    <span class="slds-assistive-text">Previous</span>
+                </span>
+            </ui:button> 
+            <ui:button class="slds-button slds-button--neutral slds-p-horizontal--xx-small " press="{!c.Next}" disabled="{!v.next}" >
+                <span class="slds-icon slds-icon-text-default">
+                    &#9654;
+                    <span class="slds-assistive-text">Next</span>
+                </span>
+            </ui:button>
+        </div>
+
+        <div class="slds-dropdown-trigger slds-dropdown-trigger_click dropdown" id="choice_column">
+
+            <div class="slds-button slds-button_icon slds-button_icon-border-filled" onclick="{! c.openDropdown }">
+                Modifier les colomns
+            </div>
+
+            <div class="slds-dropdown slds-dropdown_left" onclick="{! c.canselCloseDropdown}">
+                <p class="list-column-item" data-id="all" onclick="{! c.toggleSelectColumn }">
+                    All
+                </p>
+                <aura:iteration items="{!v.columns}" var="column">
+                    <p class="list-column-item" data-id="{! column.order }" onclick="{! c.toggleSelectColumn }">
+                        <aura:if isTrue="{! column.isDisplay == true}">
+                            <img src="/img/checkbox_checked.gif" alt="Checked" width="21" height="16" class="checkImg" title="Checked" />
+                            <aura:set attribute="else">
+                            <img src="/img/checkbox_unchecked.gif" alt="Not Checked" width="21" height="16" class="checkImg" title="Not Checked" />
+                            </aura:set>
+                        </aura:if> 
+                        <span class="slds-truncate" id="{!column.fieldApiName}">{!column.fieldName}</span>
+                    </p>
+                </aura:iteration>
+            </div>
+        </div>
+
+
+        <div class="slds-dropdown-trigger slds-dropdown-trigger_click dropdown choice_column" id="choice_column2">
+
+            <div class="slds-button slds-button_icon slds-button_icon-border-filled" onclick="{! c.openDropdown }">
+                <aura:if isTrue="{! v.children != null}">
+                    {! v.children.objectName }.[{! v.children.fieldName }]
+                    <aura:set attribute="else">
+                        Aucun - champ par default
+                    </aura:set>
+                </aura:if> 
+                <!-- Aucun - champ par default -->
+            </div>
+
+            <div class="slds-dropdown slds-dropdown_left selectdropdown">
+                <p class="list-column-item" data-id="-1" onclick="{! c.selectChild }">
+                    Aucun - champ par default
+                </p>
+                <aura:iteration items="{!v.childrens}" var="column" indexVar="index">
+                    <p data-id="{! index }" title="{! '('+column.objectName + ').'+ column.fieldName }" class="list-column-item" onclick="{! c.selectChild }">
+                        {! column.objectName }.[{! column.fieldName }]
+                    </p>
+                </aura:iteration>
+            </div>
+        </div>
+
+
+
+        <br/>
+        <aura:if isTrue="{!v.loading}">
+            <div class="slds-clearfix">
+              <div role="status" class="slds-spinner slds-spinner_medium">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+              </div>
+            </div>
+        </aura:if>
+        <table class="slds-table slds-table--bordered slds-table--cell-buffer slds-max-medium-table--stacked-horizontal">
+            <thead>
+                <!-- HEADER BODY TABL BY DATA -->
+                <tr class="slds-text-title--caps">
+                    <aura:if isTrue="{!v.massAction}">
+                        <th class="slds-text-align_right" scope="col" style="width: 3.25rem;">
+                            <div class="slds-th__action slds-th__action_form">
+                                <span class="slds-checkbox">
+                                    <ui:inputCheckbox name="options" aura:id="selectAllCheckBox" value="{! v.selectAll }" click="{!c.selectAllChange}" />
+                                   <!--  <input type="checkbox" value="{! v.selectAll }" name="options" id="selectAllCheckBox" aura:id="selectAllCheckBox" tabindex="-1" onclick="{!c.selectAllChange}" />
+                                    <label class="slds-checkbox__label" for="selectAllCheckBox">
+                                        <span class="slds-checkbox_faux"></span>
+                                        <span class="slds-form-element__label slds-assistive-text">Select All</span>
+                                    </label> -->
+                                </span>
+                            </div>
+                        </th>
+                    </aura:if>
+                    <aura:iteration items="{!v.columns}" var="column">
+                        <aura:if isTrue="{! column.isDisplay == true}">
+                        <th class="slds-is-sortable slds-text-title--caps" scope="col" onclick="{!c.sortBycolumn }" id="{!column.fieldApiName}">
+                            <span class="m-perso" id="{!column.fieldApiName}">
+                                <span id="{!column.fieldApiName}" class="slds-assistive-text">Sort</span>
+                                <span class="slds-truncate" id="{!column.fieldApiName}">{!column.fieldName}</span>
+                                <aura:if isTrue="{! and(v.columnToSort == column.order, v.sortMethod == 'ASC') }">&nbsp;  &#9660; </aura:if>  
+                                <aura:if isTrue="{! and(v.columnToSort == column.order, v.sortMethod == 'DESC') }"> &nbsp;  &#9650; </aura:if>
+                            </span>
+                        </th>
+                        </aura:if>
+                    </aura:iteration>
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.results}" var="result" indexVar="index">
+                    <tr>
+                        
+                        <!-- MULTI SELECT --> 
+                        <aura:if isTrue="{!v.massAction}">
+                        <td class="slds-text-align_right" role="gridcell">
+                          <span class="slds-checkbox">
+                            <ui:inputCheckbox name="options" aura:id="{! 'massAction-'+index }" value="{! result.active }" />
+                            <!-- <label class="slds-checkbox__label" aura:id="{! 'massAction-'+index }">
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label slds-assistive-text">Select item 1</span>
+                            </label> -->
+                          </span>
+                        </td>
+                        </aura:if>
+
+                        <!-- DATA DISPLAY -->
+                        <aura:iteration items="{!result.fields}" var="field">
+                            <aura:if isTrue="{! field.isDisplay == true}">
+                            <td data-label="{!field.fieldName}">
+                                <div class="slds-truncate" title="{!field.fieldName}">
+                                    <aura:if isTrue="{! or(field.isCheckbox, or(field.isImage, field.fieldType == 'ID')) }">
+                                        <!-- Image -->
+                                        <aura:if isTrue="{!field.fieldType == 'ID'}">
+                                            <a href="{! '#/sObject/' + field.value  + '/view'}">{!field.value}</a>
+                                        </aura:if>
+
+                                        <!-- Checkbox -->
+                                        <aura:if isTrue="{!field.isCheckbox}">
+                                            <aura:if isTrue="{!field.value == 'true'}">
+                                                <img src="/img/checkbox_checked.gif" alt="Checked" width="21" height="16" class="checkImg" title="Checked" />
+                                            </aura:if>
+                                            <aura:if isTrue="{!field.value == 'false'}">
+                                                <img src="/img/checkbox_unchecked.gif" alt="Not Checked" width="21" height="16" class="checkImg" title="Not Checked" />
+                                            </aura:if>
+                                        </aura:if>
+
+                                        <!-- Image -->
+                                        <aura:if isTrue="{!field.isImage}">
+                                            <img src="{!field.value}" alt="{!field.value}" title="{!field.value}" />
+                                        </aura:if>
+                                    <aura:set attribute="else">
+                                        {!field.value}
+                                    </aura:set>
+                                    </aura:if>
+                                </div>
+                            </td>
+                            </aura:if>
+                        </aura:iteration>
+                    </tr>
+                </aura:iteration> 
+            </tbody>
+        </table> 
+
+
+        <div class="pagination">
+            <div>Page {! v.page} / {!v.pageMax}</div>
+            <ui:button class="slds-button slds-button--neutral slds-p-horizontal--xx-small" press="{!c.Previous}" disabled="{!v.prev}">
+                <span class="slds-icon slds-icon-text-default">
+                    &#9664;
+                    <span class="slds-assistive-text">Previous</span>
+                </span>
+            </ui:button> 
+            <ui:button class="slds-button slds-button--neutral slds-p-horizontal--xx-small " press="{!c.Next}" disabled="{!v.next}" >
+                <span class="slds-icon slds-icon-text-default">
+                     &#9654;
+                    <span class="slds-assistive-text">Next</span>
+                </span>
+            </ui:button>
+        </div>              
+    </div>
+</aura:component>

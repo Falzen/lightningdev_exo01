@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" >
+    <aura:attribute name="leafContent" type="String"/>
+    <aura:attribute name="leafDisplayType" type="String"/>
+</aura:event>

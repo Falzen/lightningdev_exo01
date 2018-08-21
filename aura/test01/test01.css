@@ -1,0 +1,66 @@
+.THIS.list-item-container {
+    max-width: 600px;
+	box-sizing: border-box;
+}
+.THIS .avatar {
+}
+.THIS .avatar img {
+    width: 100%;
+    display: block;
+    
+}
+
+
+
+
+
+.THIS .main-infos {
+    padding: 5px 12px;
+    background-color: red;
+}
+
+.THIS .main-infos p {
+ 	margin: 0;
+    margin-bottom: 6px;
+    font-size: 11px;
+    line-height: 16px;
+}
+.THIS .main-infos p.address {
+    position: relative;
+    /* décalage pour laisser la place à l'icone */
+    text-indent: 20px;
+}
+
+.THIS .address::before {
+    content: "";
+    display: block;
+    position: absolute;
+    /* profiter du décalage : collée à gauche */
+    left: 0;
+    height: 16px;
+    width: 16px;
+    background: url('https://www.shareicon.net/data/128x128/2015/11/24/676940_building_512x512.png');
+    background-size: cover;
+}
+
+
+
+
+
+.THIS .side-infos {}
+
+.THIS .onething {
+    text-align: right;
+    
+}
+.THIS .anotherthing {
+    text-align: right;
+}
+.THIS .anotherthing  span{
+    border: 1px solid red;
+    border-radius: 15px;
+    padding: 3px 5px;
+}
+.THIS .choices-container {
+    max-height: 110px;
+}

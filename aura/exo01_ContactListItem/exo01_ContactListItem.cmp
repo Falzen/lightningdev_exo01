@@ -1,0 +1,16 @@
+<aura:component >		
+    
+    <aura:attribute name="contact" type="Contact" />
+    
+    
+    <li>
+        <p>
+            <a href="{! 'https://www.google.fr/search?q=' + v.contact.FirstName + '+' + v.contact.LastName }"  target="_blank" alt="" >
+                {! v.contact.FirstName + ' ' + v.contact.LastName }
+            </a>
+            <a href="" onclick="{! c.displayContactDetails }">
+                (details)
+            </a>
+        </p>
+    </li>
+</aura:component>

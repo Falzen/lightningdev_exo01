@@ -1,0 +1,22 @@
+<aura:component >
+    <aura:attribute name="account" type="Account" />
+    <aura:attribute name="contactsNumber" type="Integer" default="0"/>
+    
+    <!-- <aura:registerEvent /> allows the component to fire an event.
+   ANY COMPONENT with a <aura:handler /> on this event name will react -->
+    <aura:registerEvent name="exo01_selectedSobjectId" type="c:exo01_selectedSobjectId"/>
+    
+    <!-- = = = = = évolution = = = = = -->    
+    <aura:handler event="c:exo01_selectedSobjectId" action="{!c.setAccountIsSelected}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <!-- = = = = = = = = = = = = = = = = -->
+    
+    
+    
+    <li onclick="{! c.selectAccount }" aura:id="oneListItem" class="{! v.contactsNumber == 0 ? 'has-no-children' : '' }">
+        {! v.account.Name }
+        <aura:if isTrue="{! v.contactsNumber > 0 }">
+            <span>{! '(' + v.contactsNumber + ')'}</span>
+        </aura:if>
+    </li>
+</aura:component>
